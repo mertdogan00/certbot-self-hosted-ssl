@@ -19,6 +19,7 @@ Works with both HTTP (port 80) and DNS-based validation (ideal for wildcard and 
   - [Manual DNS Challenge (No Cloudflare)](#manual-dns-challenge-no-cloudflare)
 - [Automatic Renewal](#automatic-renewal)
 - [Reload Services After Renewal (Optional)](#reload-services-after-renewal-optional)
+- [Deploy Hook Configuration (Two Methods)](#deploy-hook-configuration-two-methods)
 - [Certificate File Locations](#certificate-file-locations)
 - [Common Examples](#common-examples)
 - [Final Notes](#final-notes)
@@ -221,6 +222,39 @@ sudo certbot renew --deploy-hook "systemctl reload apache2"
 ```
 
 ---
+
+## Deploy Hook Configuration (Two Methods)
+
+When a certificate for **example.com** is successfully renewed, it’s recommended to **automatically reload your web server** using a deploy hook.  
+You can use either of these configuration files:
+
+```bash
+/etc/letsencrypt/cli.ini
+/etc/letsencrypt/renewal/example.com.conf
+```
+
+If you write the deploy hook into the `cli.ini` file, use:
+
+```ini
+# Automatically reload nginx after successful certificate renewal
+deploy-hook = systemctl reload nginx
+```
+
+This hook will apply to **all certificates on the system**, including example.com, and will automatically run after every successful certificate renewal. You don’t need to type this deploy hook again in future commands. It is permanent and works globally for all domains on the server.
+
+If you write the deploy hook into the `example.com.conf` file, use:
+
+```ini
+# Automatically reload nginx after successful certificate renewal (example.com only)
+deploy-hook = systemctl reload nginx
+```
+
+This will only apply to **the certificate for example.com** and will not affect others.
+
+---
+
+
+
 
 ## Certificate File Locations
 
