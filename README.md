@@ -4,6 +4,9 @@ This is a complete guide to obtaining SSL certificates using Certbot's `certonly
 It does **not** modify your web server (NGINX or Apache), only retrieves certificates.  
 Works with both HTTP (port 80) and DNS-based validation (ideal for wildcard and headless setups).
 
+📌 **Looking for excellent NGINX configurations?**  
+Check out [load-balancer-manuel-setup](https://github.com/mertdogan00/load-balancer-manuel-setup) for great, practical NGINX load balancer setups and advanced examples. It's highly recommended if you want to explore deeper NGINX scenarios! 🚀
+
 ---
 
 ## 📚 Table of Contents
